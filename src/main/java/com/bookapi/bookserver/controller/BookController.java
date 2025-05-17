@@ -11,7 +11,7 @@ import java.util.Optional; // For findById()
 
 @RestController
 @RequestMapping("/books")
-@CrossOrigin(origins = "*")// Allows all origins, good for development
+@CrossOrigin(origins = "cozy-pothos-54424c.netlify.app")// Allows all origins, good for development
 public class BookController {
 
     private final BookRepository bookRepository; // Declare BookRepository
