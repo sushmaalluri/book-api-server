@@ -9,6 +9,6 @@ RUN mvn package -DskipTests
 # Stage 2: Create the final lightweight runtime image
 FROM eclipse-temurin:17-jre-alpine
 WORKDIR /app
-COPY --from=build /app/target/*.jar app.jar
+COPY --from=build /app/target/book-server-0.0.1-SNAPSHOT.jar app.jar
 EXPOSE 8080 
 ENTRYPOINT ["java", "-jar", "/app.jar"]
