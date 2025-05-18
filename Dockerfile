@@ -12,4 +12,4 @@ WORKDIR /app
 COPY --from=build /app/target/book-server-0.0.1-SNAPSHOT.jar app.jar
 RUN ls -l /app
 EXPOSE 8080 
-ENTRYPOINT ["java", "-jar", "/app.jar"]
+ENTRYPOINT ["sh", "-c", "echo '--- Runtime: Listing /app contents ---' && ls -l /app && echo '--- Runtime: Attempting to run java -jar /app.jar ---' && java -jar /app.jar"]
