@@ -1,0 +1,7 @@
+.git
+.gitignore
+.idea/
+target/ # Docker build will create its own target in the build stage
+*.iml
+# Add mvnw, mvnw.cmd, .mvn if you are NOT using them in the Dockerfile's RUN mvn ...
+# If your FROM maven:... image has mvn, you might not need to copy your local mvnw files

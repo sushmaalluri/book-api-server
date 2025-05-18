@@ -1,20 +1,14 @@
-# Use a lightweight Java Runtime Environment base image (Java 17 JRE on Alpine Linux)
-FROM eclipse-temurin:17-jre-alpine
-
-# Set the working directory inside the container
+# Stage 1: Build the application using Maven and OpenJDK 17
+FROM maven:3.9.6-eclipse-temurin-17-alpine AS build
 WORKDIR /app
+COPY pom.xml .
+RUN mvn dependency:go-offline -B
+COPY src ./src
+RUN mvn package -DskipTests
 
-# Argument to specify the path to your JAR file.
-# This path is relative to the Dockerfile (i.e., your project root).
-# Make sure this matches the actual path and name of your JAR file in the target directory.
-ARG JAR_FILE_PATH=target/book-server-0.0.1-SNAPSHOT.jar
-
-# Copy the pre-built JAR file from your project's target directory into the image and rename it to app.jar
-COPY ${JAR_FILE_PATH} app.jar
-
-# Expose the port that your Spring Boot application listens on internally (default is 8080)
-EXPOSE 8080
-
-
-# The command to run your application when the container starts
+# Stage 2: Create the final lightweight runtime image
+FROM eclipse-temurin:17-jre-alpine
+WORKDIR /app
+COPY --from=build /app/target/*.jar app.jar
+EXPOSE 8080 # Spring Boot default port
 ENTRYPOINT ["java", "-jar", "/app.jar"]
