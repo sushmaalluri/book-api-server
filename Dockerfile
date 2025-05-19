@@ -7,7 +7,7 @@ COPY src ./src
 RUN mvn package -DskipTests
 
 # Stage 2: Create the final runtime image using a standard JRE (not Alpine)
-FROM eclipse-temurin:17-jre  # <--- CHANGE THIS LINE
+FROM eclipse-temurin:17-jre 
 WORKDIR /app
 COPY --from=build /app/target/book-server-0.0.1-SNAPSHOT.jar app.jar
 
