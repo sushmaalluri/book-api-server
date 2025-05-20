@@ -11,7 +11,7 @@ import java.util.Optional; // For findById()
 
 @RestController
 @RequestMapping("/books")
-@CrossOrigin(origins = {"http://localhost:5173", "https://cozy-pothos-54424c.netlify.app"} ) // Allow requests from your local React app
+@CrossOrigin(origins = "https://cozy-pothos-54424c.netlify.app") // Allow requests from your local React app
 public class BookController {
 
     private final BookRepository bookRepository; // Declare BookRepository
